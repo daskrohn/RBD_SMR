@@ -1,11 +1,25 @@
 # RBD_SMR
 Using SMR for eQTL mendelian randomization. 
 
-## Downloading data. 
+## Set up workspace
+SMR 
 I used eQTLgen, GTEx v7 substantia nigra, and Brain eMeta (expression) and mMeta (methylation). SMR files were downloaded from FILL IN. 
 
 ## Preparation of files
-Creating working data plink files, and converting plink bfiles from chr:pos format to rsID format:
+First, create a gene list for use with the QTL summary stats.  
+* MR_list.txt is a single column list of genes you are interested in based on GWAS summary stats.  
+* genIdsFromHugo.txt is a reference file included in this repository. 
+```R
+require(data.table)
+geneList <- fread("MR_list.txt", header = F)
+names(geneList) <- "GENE"
+ensg <- fread("genIdsFromHugo.txt", header = T, sep = "\t")
+data <- merge(geneList, ensg, by.x = "GENE", by.y = "Approved Symbol")
+names(data)[12] <- "ensgOut"
+write.table(data$ensgOut, "ensembl_MR_list.txt", quote = F, sep = "\t", row.names = F, col.names = F)
+```
+
+Next, create working data plink files, and convert plink .bim from chr:pos format to rsID format (to match the QTL summary stats):
 ```R
 # R
 
