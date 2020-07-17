@@ -7,6 +7,8 @@ I used eQTLgen, GTEx v7 substantia nigra, and Brain eMeta (expression) and mMeta
 ## Preparation of files
 Creating working data plink files, and converting plink bfiles from chr:pos format to rsID format:
 ```R
+# R
+
 require(data.table)
 bim <- fread("~/runs/krohn/krohn/Main_0_Data/NeuroX/Imputed/imptd_RBD_Nx.bim")
 ref <- fread("/home/daskrohn/runs/krohn/krohn/Main_0_Data/HRC.r1.1.GRCh37.for-anno.tab")
@@ -22,6 +24,9 @@ write.table(info, file="rsID_info.for-bim.txt", row.names=FALSE, col.names=FALSE
 
 q()
 ````
+
+````
+#!/bin/bash
 
 awk '{if ($2==".") print $7} rsID_info.for-bim.txt > exclude_noRS.txt
 
