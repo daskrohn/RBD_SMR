@@ -38,4 +38,38 @@ plink --bfile ~/runs/krohn/krohn/Main_0_Data/NeuroX/Imputed/imptd_RBD_Nx \
 awk '{if ($2!=".") print $7,$2}' rsID_info.for-bim.txt > rename_bim.txt
 
 plink --bfile workingData --update-name rename_bim.txt --make-bed --out workingData 
-```
+````
+## Run SMR
+````
+./smr_Linux --bfile workingData \
+--smr-multi \
+--gwas-summary toSMR_summarystats.txt \
+--beqtl-summary eQTLGen/cis-eQTLs-full_eQTLGen_AF_incl_nr_formatted_20191212.new.txt_besd-dense \
+--out eQTLGen_multi_RBD_PATHWAYS \
+--genes ensembl_MR_list.txt \
+--thread-num 12
+
+./smr_Linux --bfile workingData \
+--smr-multi \
+--gwas-summary toSMR_summarystats.txt \
+--beqtl-summary Brain-eMeta/Brain-eMeta \
+--out Brain-eMeta_multi_RBD_PATHWAYS \
+--genes ensembl_MR_list.txt \
+--thread-num 12
+
+./smr_Linux --bfile workingData \
+--smr-multi \
+--gwas-summary toSMR_summarystats.txt \
+--beqtl-summary Brain-mMeta/Brain-mMeta \
+--out Brain-mMeta_multi_RBD_PATHWAYS \
+--genes ensembl_MR_list.txt \
+--thread-num 12
+
+./smr_Linux --bfile workingData \
+--smr-multi \
+--gwas-summary toSMR_summarystats.txt \
+--beqtl-summary GTEx_V7_cis_eqtl_summary_lite/Brain_Substantia_nigra_1e-05 \
+--out GTEx-Brain_Substantia_nigra_1e-05_PD_PATHWAYS \
+--genes ensembl_MR_list.txt \
+--thread-num 12
+````
