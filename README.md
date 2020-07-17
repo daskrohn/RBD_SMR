@@ -24,6 +24,7 @@ write.table(info, file="rsID_info.for-bim.txt", row.names=FALSE, col.names=FALSE
 
 q()
 ````
+Since some positions don't have an rsID, they must be removed from the bfiles. 
 
 ````
 #!/bin/bash
