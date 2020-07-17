@@ -13,9 +13,11 @@ SMR
 I used eQTLgen, GTEx v7 substantia nigra, and Brain eMeta (expression) and mMeta (methylation). SMR files were downloaded from FILL IN. 
 
 ## Preparation of files
-First, create a gene list for use with the QTL summary stats.  
+First, IF you are working with a pathway or specific set of genes, create a gene list for use with the QTL summary stats.  
 * MR_list.txt is a single column list of genes you are interested in based on GWAS summary stats.  
 * genIdsFromHugo.txt is a reference file included in this repository. 
+
+*You do not need this step if you are running with full GWAS summary statistics.*
 ```R
 require(data.table)
 geneList <- fread("MR_list.txt", header = F)
@@ -66,31 +68,33 @@ plink --bfile workingData --update-name rename_bim.txt --make-bed --out workingD
 --smr-multi \
 --gwas-summary toSMR_summarystats.txt \
 --beqtl-summary eQTLGen/cis-eQTLs-full_eQTLGen_AF_incl_nr_formatted_20191212.new.txt_besd-dense \
---out eQTLGen_multi_RBD_PATHWAYS \
---genes ensembl_MR_list.txt \
+--out eQTLGen_multi_RBD-meta \
 --thread-num 12
 
 ./smr_Linux --bfile workingData \
 --smr-multi \
 --gwas-summary toSMR_summarystats.txt \
 --beqtl-summary Brain-eMeta/Brain-eMeta \
---out Brain-eMeta_multi_RBD_PATHWAYS \
---genes ensembl_MR_list.txt \
+--out Brain-eMeta_multi_RBD-meta \
 --thread-num 12
 
 ./smr_Linux --bfile workingData \
 --smr-multi \
 --gwas-summary toSMR_summarystats.txt \
 --beqtl-summary Brain-mMeta/Brain-mMeta \
---out Brain-mMeta_multi_RBD_PATHWAYS \
---genes ensembl_MR_list.txt \
+--out Brain-mMeta_multi_RBD-meta \
 --thread-num 12
 
 ./smr_Linux --bfile workingData \
 --smr-multi \
 --gwas-summary toSMR_summarystats.txt \
 --beqtl-summary GTEx_V7_cis_eqtl_summary_lite/Brain_Substantia_nigra_1e-05 \
---out GTEx-Brain_Substantia_nigra_1e-05_PD_PATHWAYS \
---genes ensembl_MR_list.txt \
+--out GTEx-Brain_Substantia_nigra_1e-05_RBD-meta \
 --thread-num 12
+
+mkdir results
+mkdir logs 
+
+mv *.msmr results
+mv *.list logs 
 ````
