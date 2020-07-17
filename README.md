@@ -1,5 +1,12 @@
 # RBD_SMR
-Using SMR for eQTL mendelian randomization. 
+Using SMR for eQTL mendelian randomization.  
+From Sara Bandres-Ciga:  
+*The SMR software tool implements the SMR & HEIDI methods to test for pleiotropic association 
+between the expression level of a gene and a complex trait of interest using summary-level data 
+from GWAS and expression quantitative trait loci (eQTL) studies (Zhu et al. 2016 Nature Genetics). 
+The methodology can be interpreted as an analysis to test if the effect size of a SNP on the 
+phenotype is mediated by gene expression. This tool can therefore be used to prioritize genes 
+underlying GWAS hits for follow-up functional studies.* 
 
 ## Set up workspace
 SMR 
